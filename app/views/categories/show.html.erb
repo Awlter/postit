@@ -1,0 +1,6 @@
+<% current_cate = @category.name %>
+<% header = link_to("All Posts", posts_path) + " &raquo #{current_cate}".html_safe %>
+
+<%= render "shared/content_title", title: header %>
+
+<%= render @category.posts %>
