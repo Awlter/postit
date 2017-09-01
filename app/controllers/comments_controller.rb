@@ -2,15 +2,12 @@ require 'pry'
 
 class CommentsController < ApplicationController
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user_id = '1'
-    @comment.post_id = params[:post_id]
-    @post = @comment.post
-
-    binding.pry
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+    @comment.creator = User.first
 
     if @comment.save
-      flash["notice"] = 'New post is created!'
+      flash["notice"] = 'New comment is created!'
       redirect_to post_path(@post)
     else
       render "/posts/show"

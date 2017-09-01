@@ -13,9 +13,14 @@
 </p>
 
 <%= form_for [@post, @comment] do |f| %>
+  <%= render "shared/errors", obj: @comment %>
   <div class="control-group">
-    <%= f.label :comment %>
-    <%= f.text_area :body %>
+    <%= f.label :body, 'Leave a comment' %>
+    <%= f.text_area :body, rows: 3, class: 'span4' %>
   </div>
   <%= f.submit 'Create Comment', class: 'btn btn-primary' %>
 <% end %>
+
+<h5>Comments</h5>
+
+<%= render @post.comments %>
