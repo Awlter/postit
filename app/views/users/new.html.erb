@@ -1,5 +1,7 @@
 <%= render 'shared/content_title', title: 'Create New User' %>
 
+<%= render 'shared/errors', obj: @user %>
+
 <div class="well">
   <%= form_for @user do |f| %>
     <div class="controll-group">
