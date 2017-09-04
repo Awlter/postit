@@ -1,6 +1,8 @@
 require 'pry'
 
 class CategoriesController < ApplicationController
+  before_action :confirm_state, only: [:new]
+
   def show
     @category = Category.find(params[:id])
   end

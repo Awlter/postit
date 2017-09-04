@@ -2,6 +2,7 @@ require 'pry'
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
+  before_action :confirm_state, only: [:new, :edit]
 
   def index
     @posts = Post.all

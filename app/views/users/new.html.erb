@@ -10,11 +10,11 @@
     </div>
     <div class="controll-group">
       <%= f.label :password %>
-      <%= f.text_field :password %>
+      <%= f.password_field :password %>
     </div>
     <div class="controll-group">
       <%= f.label :confirm_password %>
-      <%= f.text_field :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
     </div>
     <%= f.submit 'Create', class: 'btn btn-primary' %>
   <% end %>

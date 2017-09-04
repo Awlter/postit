@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
   def logged_in?
     current_user != nil
   end
+
+  def confirm_state
+    if !logged_in?
+      flash['error'] = "You need to log in."
+      redirect_to login_path
+    end
+  end
 end
