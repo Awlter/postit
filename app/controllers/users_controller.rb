@@ -15,4 +15,24 @@ class UsersController < ApplicationController
       render :new
     end
   end
+
+  def show
+    @tag = params[:tag]
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(params.require(:user).permit!)
+      flash['notice'] = "Updated successfully!"
+      redirect_to posts_path
+    else
+      render :edit
+    end
+  end
 end

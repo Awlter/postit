@@ -1,0 +1,36 @@
+<%= render 'shared/content_title', title: 'Profile: ' + username %>
+
+<div class="well">
+  <dl class="dl-horizontal">
+    <dt>Username:</dt>
+    <dd><%= username %></dd>
+  </dl>
+</div>
+
+<h5><%= username %>'s activities:</h5>
+
+<ul class="nav nav-tabs">
+  <% if @tag.nil? %>
+    <li class="active">
+  <% else %>
+    <li>
+  <% end %>
+    <%= link_to "Post(#{@user.posts.size})", user_path(current_user) %>
+  </li>
+
+  <% if @tag == 'comments' %>
+    <li class="active">
+  <% else %>
+    <li>
+  <% end %>
+    <%= link_to "Comments(#{@user.comments.size})", user_path(current_user, tag: 'comments') %>
+  </li>
+</ul>
+
+
+
+<% if @tag.nil? %>
+  <%= render @user.posts %>
+<% else %>
+  <%= render @user.comments %>
+<% end %>
