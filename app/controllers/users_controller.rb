@@ -1,6 +1,8 @@
 require 'pry'
 
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
+
   def new
     @user = User.new
   end
@@ -18,21 +20,23 @@ class UsersController < ApplicationController
 
   def show
     @tag = params[:tag]
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-
     if @user.update(params.require(:user).permit!)
       flash['notice'] = "Updated successfully!"
       redirect_to posts_path
     else
       render :edit
     end
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
