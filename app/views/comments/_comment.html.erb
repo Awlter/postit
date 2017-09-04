@@ -1,8 +1,11 @@
 <div class="row">
   <div class="span8 well">
     <em>"<%= comment.body %>"</em>
+    <% if params[:tab] %>
+      on <%= link_to comment.post.title, post_path(comment.post) %>
+    <% end %>
     <p>
-      <span class="quiet">By </span><%= comment.creator.username %>
+      <span class="quiet">By </span><%= link_to comment.creator.username, user_path(comment.creator) %>
       <small>at <%= display_datetime(comment.created_at) %></small>
     </p>
   </div>

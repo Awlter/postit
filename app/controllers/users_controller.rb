@@ -2,6 +2,7 @@ require 'pry'
 
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
+  before_action :require_same_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -37,5 +38,12 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def require_same_user
+    if session[:user_id] != params[:id]
+      flash["error"] = "Wrong user."
+      redirect_to root_path
+    end
   end
 end

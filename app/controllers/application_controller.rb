@@ -12,10 +12,6 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
-  def username
-    current_user.username
-  end
-
   def require_user
     if !logged_in?
       flash['error'] = "You need to log in."

@@ -1,13 +1,13 @@
-<%= render 'shared/content_title', title: 'Profile: ' + username %>
+<%= render 'shared/content_title', title: 'Profile: ' + @user.username %>
 
 <div class="well">
   <dl class="dl-horizontal">
     <dt>Username:</dt>
-    <dd><%= username %></dd>
+    <dd><%= @user.username %></dd>
   </dl>
 </div>
 
-<h5><%= username %>'s activities:</h5>
+<h5><%= @user.username %>'s activities:</h5>
 
 <ul class="nav nav-tabs">
   <li class=<%= "active" if params[:tab].nil? %>>
@@ -19,7 +19,7 @@
   </li>
 </ul>
 
-<% if @tag.nil? %>
+<% if params[:tab].nil? %>
   <%= render @user.posts %>
 <% else %>
   <%= render @user.comments %>
