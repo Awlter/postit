@@ -10,24 +10,14 @@
 <h5><%= username %>'s activities:</h5>
 
 <ul class="nav nav-tabs">
-  <% if @tag.nil? %>
-    <li class="active">
-  <% else %>
-    <li>
-  <% end %>
+  <li class=<%= "active" if params[:tab].nil? %>>
     <%= link_to "Post(#{@user.posts.size})", user_path(current_user) %>
   </li>
 
-  <% if @tag == 'comments' %>
-    <li class="active">
-  <% else %>
-    <li>
-  <% end %>
-    <%= link_to "Comments(#{@user.comments.size})", user_path(current_user, tag: 'comments') %>
+  <li class=<%= "active" if params[:tab] == "comments" %>>
+    <%= link_to "Comments(#{@user.comments.size})", user_path(current_user, tab: 'comments') %>
   </li>
 </ul>
-
-
 
 <% if @tag.nil? %>
   <%= render @user.posts %>

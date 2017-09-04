@@ -19,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @tag = params[:tag]
   end
 
   def edit
