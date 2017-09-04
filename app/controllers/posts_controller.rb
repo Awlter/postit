@@ -2,7 +2,7 @@ require 'pry'
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
-  before_action :require_user, only: [:new, :edit]
+  before_action :require_user, only: [:new, :edit, :create]
 
   def index
     @posts = Post.all
