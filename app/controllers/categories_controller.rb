@@ -1,5 +1,3 @@
-require 'pry'
-
 class CategoriesController < ApplicationController
   before_action :require_user, only: [:new, :create]
 
