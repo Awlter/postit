@@ -17,6 +17,16 @@ class CommentsController < ApplicationController
     end
   end
 
+  def vote
+    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: Comment.find(params[:id]))
+
+    if vote.valid?
+      flash['notice'] = "Voted!"
+    end
+
+    redirect_to :back
+  end
+
   private
 
   def comment_params

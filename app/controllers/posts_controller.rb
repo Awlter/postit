@@ -1,7 +1,7 @@
 require 'pry'
 
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, only: [:new, :edit, :create]
 
   def index
@@ -38,6 +38,16 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def vote
+    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+
+    if vote.valid?
+      flash['notice'] = "Voted!"
+    end
+
+    redirect_to :back
   end
 
   private
