@@ -2,7 +2,7 @@ require 'pry'
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
-  before_action :require_user, only: [:new, :edit, :create]
+  before_action :require_user, only: [:new, :edit, :create, :vote]
 
   def index
     @posts = Post.all.sort_by {|x| x.total_votes }.reverse
@@ -41,8 +41,13 @@ class PostsController < ApplicationController
   end
 
   def vote
-    Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
-    flash['notice'] = "Voted!"
+    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+
+    if vote.valid?
+      flash['notice'] = "Voted!"
+    else
+      flash['error'] = "You have already voted!"
+    end
     redirect_to :back
   end
 
