@@ -41,12 +41,8 @@ class PostsController < ApplicationController
   end
 
   def vote
-    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
-
-    if vote.valid?
-      flash['notice'] = "Voted!"
-    end
-
+    Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+    flash['notice'] = "Voted!"
     redirect_to :back
   end
 
