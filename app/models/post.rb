@@ -20,4 +20,8 @@ class Post < ActiveRecord::Base
   def down_votes
     self.votes.where(vote: false).size
   end
+
+  def sorted_comments
+    self.comments.sort_by {|x| x.total_votes}.reverse
+  end
 end
