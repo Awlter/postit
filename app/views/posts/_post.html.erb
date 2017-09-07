@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span0 well text-center">
-    <%= link_to vote_post_path(post, vote: true), remote: true, method: 'post' do %>
+    <%= link_to vote_post_path(post.slug, vote: true), remote: true, method: 'post' do %>
       <i class="icon-arrow-up"></i>
     <% end %>
     <br/>

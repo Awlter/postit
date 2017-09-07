@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
   validates :title, length: {minimum: 5}
   validates :url, uniqueness: true
 
+  after_validation :generate_slug
+
   def total_votes
     up_votes - down_votes
   end
@@ -23,5 +25,13 @@ class Post < ActiveRecord::Base
 
   def sorted_comments
     self.comments.sort_by {|x| x.total_votes}.reverse
+  end
+
+  def generate_slug
+    self.slug = self.title.gsub(' ', '-').downcase
+  end
+
+  def to_param
+    self.slug
   end
 end
