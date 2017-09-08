@@ -27,8 +27,16 @@ class Post < ActiveRecord::Base
     self.comments.sort_by {|x| x.total_votes}.reverse
   end
 
+  def to_slug
+    slug = self.title.gsub(/[^a-zA-Z0-9]/, '-').downcase
+    self.slug = slug.gsub(/[-]+/, '-')
+  end
+
   def generate_slug
-    self.slug = self.title.gsub(' ', '-').downcase
+    to_slug
+    count = Post.select { |post| post.slug.start_with?(to_slug)}.size
+
+    self.slug += '-' + count.to_s if count > 0
   end
 
   def to_param
