@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   include Voteable
+  include Sluggable
 
   belongs_to :creator, foreign_key: 'user_id', class_name: 'User'
   has_many :comments
@@ -10,25 +11,13 @@ class Post < ActiveRecord::Base
   validates :title, length: {minimum: 5}
   validates :url, uniqueness: true
 
-  after_validation :generate_slug
-
   def sorted_comments
     self.comments.sort_by {|x| x.total_votes}.reverse
   end
 
-  def to_slug
-    slug = self.title.gsub(/[^a-zA-Z0-9]/, '-').downcase
-    self.slug = slug.gsub(/[-]+/, '-')
+  def sluggable_column
+    self.title
   end
-
-  def generate_slug
-    to_slug
-    a_regex = /\A#{to_slug}\[\-0-9]*\z/
-    count = Post.select { |post| post.slug.match(a_regex)}.size
-
-    self.slug += '-' + count.to_s if count > 0
-  end
-
 
   def to_param
     self.slug
