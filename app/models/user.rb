@@ -19,9 +19,19 @@ class User < ActiveRecord::Base
     self.comments.sort_by {|x| x.total_votes }.reverse
   end
 
-  def generate_slug
-    self.slug = self.username.gsub(' ', '-').downcase
+  def to_slug
+    slug = self.username.gsub(/[^a-zA-Z0-9]/, '-').downcase
+    self.slug = slug.gsub(/[-]+/, '-')
   end
+
+  def generate_slug
+    to_slug
+    a_regex = /\A#{to_slug}[\-0-9]*\z/
+    count = User.select { |user| user.slug.match(a_regex)}.size
+
+    self.slug += '-' + count.to_s if count > 0
+  end
+
 
   def to_param
     self.slug
