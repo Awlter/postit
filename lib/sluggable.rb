@@ -3,10 +3,11 @@ module Sluggable
 
   included do
     after_validation :generate_slug!
+    class_attribute :slug_column
   end
 
   def to_slug
-    slug = self.sluggable_column.gsub(/[^a-zA-Z0-9]/, '-').downcase
+    slug = self.send(self.class.slug_column).gsub(/[^a-zA-Z0-9]/, '-').downcase
     slug.gsub(/[-]+/, '-')
   end
 
@@ -23,4 +24,9 @@ module Sluggable
     self.slug
   end
 
+  module ClassMethods
+    def sluggable_column(col_name)
+      self.slug_column = col_name
+    end
+  end
 end

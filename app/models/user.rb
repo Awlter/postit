@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates :username, length: {minimum: 6}, uniqueness: true
   validates :password,  presence: true, on: :create, length: {minimum: 8}
 
+  sluggable_column :username
+
   def sorted_posts
     self.posts.sort_by {|x| x.total_votes }.reverse
   end

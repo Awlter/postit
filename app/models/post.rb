@@ -11,11 +11,9 @@ class Post < ActiveRecord::Base
   validates :title, length: {minimum: 5}
   validates :url, uniqueness: true
 
+  sluggable_column :title
+
   def sorted_comments
     self.comments.sort_by {|x| x.total_votes}.reverse
-  end
-
-  def sluggable_column
-    self.title
   end
 end
