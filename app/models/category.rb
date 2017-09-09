@@ -9,8 +9,4 @@ class Category < ActiveRecord::Base
   def sluggable_column
     self.name
   end
-
-  def to_param
-    self.slug
-  end
 end

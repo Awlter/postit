@@ -18,8 +18,4 @@ class Post < ActiveRecord::Base
   def sluggable_column
     self.title
   end
-
-  def to_param
-    self.slug
-  end
 end

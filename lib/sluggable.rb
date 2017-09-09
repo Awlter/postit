@@ -19,4 +19,8 @@ module Sluggable
     self.slug += '-' + count.to_s if count > 0
   end
 
+  def to_param
+    self.slug
+  end
+
 end

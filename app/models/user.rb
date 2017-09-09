@@ -22,8 +22,4 @@ class User < ActiveRecord::Base
   def sluggable_column
     self.username
   end
-
-  def to_param
-    self.slug
-  end
 end
