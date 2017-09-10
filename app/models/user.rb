@@ -21,7 +21,11 @@ class User < ActiveRecord::Base
     self.comments.sort_by {|x| x.total_votes }.reverse
   end
 
-  def sluggable_column
-    self.username
+  def admin?
+    self.role == 'admin'
+  end
+
+  def monitor?
+    self.role == 'monitor'
   end
 end

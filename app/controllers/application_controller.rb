@@ -18,4 +18,15 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def require_admin
+    if !current_user.admin?
+      access_denied
+    end
+  end
+
+  def access_denied
+    flash['error'] = "You cann't do that."
+    redirect_to root_path
+  end
 end

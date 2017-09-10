@@ -1,6 +1,9 @@
+require 'pry'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, only: [:new, :edit, :create, :vote]
+  before_action :require_creator, only: [:edit, :update]
 
   def index
     @posts = Post.all.sort_by {|x| x.total_votes }.reverse
@@ -62,5 +65,11 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find_by slug: params[:id]
+  end
+
+  def require_creator
+    if !current_user.admin? and (current_user != @post.creator)
+      access_denied
+    end
   end
 end
